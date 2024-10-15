@@ -12,21 +12,11 @@ class CarSerializer(serializers.Serializer):
         validators=[MaxValueValidator(1914), MinValueValidator(1)]
     )
     is_broken = serializers.BooleanField()
-    problem_description = serializers.CharField(
-        allow_blank=True,
-        allow_null=True
-    )
+    problem_description = serializers.CharField(required=False)
 
     class Meta:
         model = Car
-        fields = [
-            "id",
-            "manufacturer",
-            "model",
-            "horse_powers",
-            "is_broken",
-            "problem_description"
-        ]
+        fields = "__all__"
 
     def create(self, validated_data):
         return Car.objects.create(**validated_data)
